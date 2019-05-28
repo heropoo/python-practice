@@ -1,15 +1,9 @@
-#################################################
-# kmeans: k-means cluster
-# Author : zouxy
-# Date   : 2013-12-25
-# HomePage : http://blog.csdn.net/zouxy09
-# Email  : zouxy09@qq.com
-#################################################
+#!/usr/bin/env python
 
-from numpy import *
+import numpy as np
 import time
 import matplotlib.pyplot as plt
-from kmeans import *
+import kmeans as kn
 
 ## step 1: load data
 print "step 1: load data..."
@@ -21,10 +15,10 @@ for line in fileIn.readlines():
 
 ## step 2: clustering...
 print "step 2: clustering..."
-dataSet = mat(dataSet)
+dataSet = np.mat(dataSet)
 k = 4
-centroids, clusterAssment = kmeans(dataSet, k)
+centroids, clusterAssment = kn.kmeans(dataSet, k)
 
 ## step 3: show the result
 print "step 3: show the result..."
-showCluster(dataSet, k, centroids, clusterAssment)
+kn.showCluster(dataSet, k, centroids, clusterAssment)

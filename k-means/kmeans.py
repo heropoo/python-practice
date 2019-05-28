@@ -1,27 +1,19 @@
 #!/usr/bin/env python
 
-#################################################
-# kmeans: k-means cluster
-# Author : zouxy
-# Date   : 2013-12-25
-# HomePage : http://blog.csdn.net/zouxy09
-# Email  : zouxy09@qq.com
-#################################################
-
-from numpy import *
+import numpy as np
 import time
 import matplotlib.pyplot as plt
 
 # calculate Euclidean distance
 def euclDistance(vector1, vector2):
-    return sqrt(sum(power(vector2 - vector1, 2)))
+    return np.sqrt(np.sum(np.power(vector2 - vector1, 2)))
 
 # init centroids with random samples
 def initCentroids(dataSet, k):
     numSamples, dim = dataSet.shape
-    centroids = zeros((k, dim))
+    centroids = np.zeros((k, dim))
     for i in range(k):
-        index = int(random.uniform(0, numSamples))
+        index = int(np.random.uniform(0, numSamples))
         centroids[i, :] = dataSet[index, :]
     return centroids
 
@@ -30,7 +22,7 @@ def kmeans(dataSet, k):
     numSamples = dataSet.shape[0]
     # first column stores which cluster this sample belongs to,
     # second column stores the error between this sample and its centroid
-    clusterAssment = mat(zeros((numSamples, 2)))
+    clusterAssment = np.mat(np.zeros((numSamples, 2)))
     clusterChanged = True
 
     ## step 1: init centroids
@@ -57,8 +49,8 @@ def kmeans(dataSet, k):
 
         ## step 4: update centroids
         for j in range(k):
-            pointsInCluster = dataSet[nonzero(clusterAssment[:, 0].A == j)[0]]
-            centroids[j, :] = mean(pointsInCluster, axis = 0)
+            pointsInCluster = dataSet[np.nonzero(clusterAssment[:, 0].A == j)[0]]
+            centroids[j, :] = np.mean(pointsInCluster, axis = 0)
 
     print 'Congratulations, cluster complete!'
     return centroids, clusterAssment
